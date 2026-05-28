@@ -1,0 +1,33 @@
+# SmartSurveillance — Runtime Configuration
+
+detection:
+  model: faster_rcnn_resnet50_fpn_v2   # torchvision pretrained model
+  confidence_threshold: 0.55            # min detection confidence
+  nms_iou_threshold: 0.45               # non-max suppression IoU
+  target_classes: [1]                   # 1 = person (COCO)
+  device: auto                          # "cpu", "cuda", or "auto"
+  input_size: [640, 480]                # resize before inference
+
+tracking:
+  max_age: 30           # frames to keep lost track alive
+  min_hits: 3           # min detections before track is confirmed
+  iou_threshold: 0.3    # IoU to associate detection with track
+
+siamese:
+  embedding_dim: 128
+  similarity_threshold: 0.72    # cosine similarity for re-ID match
+  gallery_size: 500             # max stored identities in gallery
+
+heatmap:
+  decay_rate: 0.98              # per-frame decay (1.0 = no decay)
+  blur_kernel: 25               # Gaussian blur kernel size
+  colormap: HOT                 # OpenCV colormap
+  alpha: 0.55                   # overlay transparency
+
+dashboard:
+  window_title: "SmartSurveillance Intelligence Dashboard"
+  show_fps: true
+  show_heatmap: true
+  show_trajectories: true
+  alert_cooldown_sec: 10        # min seconds between same-ID alerts
+  font_scale: 0.55
